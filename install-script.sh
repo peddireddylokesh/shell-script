@@ -17,11 +17,6 @@ elif [ $input == "n" ]; then
     else
         echo "You have sudo access, uninstalling mysql"
         sudo dnf remove mysql -y
-        sudo dnf autoremove -y
-        sudo systemctl stop mysql
-        sudo systemctl disable mysql
-        sudo systemctl status mysql
-        rpm -qa | grep mysql
     fi
 else
     echo "Invalid input"
