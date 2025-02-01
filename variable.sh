@@ -3,9 +3,13 @@ echo "oh this is third file "
 echo "hi im learning gut hub"
 echo "i have to learn more"
 
-echo "loki::hi thor"
-echo "thor::hello loki"
-echo "loki::how are you doing"
-echo "thor::i am doing good"
-echo "loki::i am also doing good"
-echo "thor::i am happy to hear that"
+
+person1=loki #no spaces should put between before and after the equal
+person2=thor
+
+echo "$person1::hi $person2"    #output: loki::hi thor
+echo "$person2::hello $person1"
+echo "$person1::how are you doing"
+echo "$person2::i am doing good"
+echo "$person1::i am also doing good"
+echo "$person2::i am happy to hear that"
