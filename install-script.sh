@@ -36,3 +36,17 @@ if [ $? -ne 0 ];then #not installed
 else
     echo "mysql is already..... INSTALLED"
 fi
+
+dnf list installed git
+
+if [ $? -ne 0 ];then #not installed
+    echo "You have sudo access, installing git"
+    dnf install git -y
+    if [ $? -eq 0 ];then
+        echo "git installed successfully"
+    else
+        echo "Error:: git installation failed"
+    fi
+else
+    echo "git is already..... INSTALLED"
+fi
