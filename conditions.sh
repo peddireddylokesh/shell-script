@@ -8,13 +8,13 @@ num=$1
 #-ne is a not equal to operator
 #-le is a less than or equal to operator
 #-ge is a greater than or equal to operator
-read -p "please enter a number : "
+read -p "please enter a number : " num
 if [ $num -gt 100 ]
 then
-    echo "number is greater than 100"
+    echo "given number is  greater than 100"
 elif [ $num -lt 100 ]
 then
-    echo "number is less than 100"
+    echo "given number is less than 100"
 else
-    echo "number is equal to 100"
+    echo "given number is equal to 100"
 fi
