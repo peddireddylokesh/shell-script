@@ -1,6 +1,7 @@
 #!/bin/bash
     #array declaration
-MOVIES=("Pushpa” “rrr” “salar”)
+
+MOVIES=("Pushpa" "rrr" "salar")
 
 echo "first movie is : ${MOVIES[0]}"
 echo "second movie is : ${MOVIES[1]}"
