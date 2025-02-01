@@ -16,11 +16,11 @@ elif [ $input == "n" ]; then
         echo "You must have sudo access to uninstall mysql"
     else
         echo "You have sudo access, uninstalling mysql"
-        sudo dnf remove mysql-server -y
+        sudo dnf remove mysql -y
         sudo dnf autoremove -y
-        sudo systemctl stop mysqld
-        sudo systemctl disable mysqld
-        sudo systemctl status mysqld
+        sudo systemctl stop mysql
+        sudo systemctl disable mysql
+        sudo systemctl status mysql
         rpm -qa | grep mysql
     fi
 else
