@@ -1,6 +1,8 @@
 #!/bin/bash
 
 USERID=$(id -u)
+    read -p "Do you want to install mysql [y/n] : " input
+
 if [ $USERID -ne 0 ]; then
     echo "Error you must have sudo access to execute this script"
 elif [ $USERID -eq 0 ]; then
