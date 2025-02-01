@@ -1,2 +1,4 @@
 #!/bin/bash
-echo "omthis is third file "
+echo "oh this is third file "
+echo "hi im learning gut hub"
+echo "i have to learn more"
