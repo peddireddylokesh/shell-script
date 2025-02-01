@@ -25,7 +25,7 @@ if [ $userid -ne 0 ];then
     echo "Error:: you must have sudo access to execute this script"
 fi
 dnf list installed mysql
-if [ $? -eq 0 ];then
+if [ $? -ne 0 ];then
     echo "You have sudo access, installing mysql"
     dnf install mysql -y
 fi
