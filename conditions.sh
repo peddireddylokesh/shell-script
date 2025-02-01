@@ -2,13 +2,14 @@
 num=$1
 
 #-gt is a greater than operator 
+#-p is a prompt operator
 #-lt is a less than operator
 #-eq is a equal to operator
 #-ne is a not equal to operator
 #-le is a less than or equal to operator
 #-ge is a greater than or equal to operator
-
-if [ $num -gt 100]
+read -p "please enter a number : " num
+if [ $num -gt 100 ]
 then
     echo "given number is  greater than 100"
 else 
