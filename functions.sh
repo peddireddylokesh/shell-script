@@ -1,5 +1,5 @@
 #!/bin/bash
-  userid=$(id -u)
+userid=$(id -u)
 
 validate(){
       if [ $1 -eq 0 ];then
