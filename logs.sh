@@ -8,6 +8,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 Log_folder="/var/log/shellscript-logs"
+logfile=$(echo $0| cut -d "." -f 1)
 validate(){
       if [ $1 -eq 0 ];then
         echo -e "$2 ...$G successfully"
