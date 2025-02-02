@@ -1,12 +1,14 @@
 #!/bin/bash
 userid=$(id -u)
-
+R="e\[31m"
+G="e\[32m"
+Y="e\[33m"
 validate(){
       if [ $1 -eq 0 ];then
-        echo "$2 successfully"
+        echo -e "$2 ...$G successfully"
         exit 1
     else
-        echo "Error:: $2 failed"
+        echo -e "Error:: $2  .....$R failed"
     fi
 }
 if [ $userid -ne 0 ];then
@@ -21,7 +23,7 @@ if [ $? -ne 0 ];then #not installed
     dnf install mysql -y
     validate $? "installing mysql"
 else
-    echo "mysql is already..... INSTALLED"
+    echo -e "mysql is already..... $Y INSTALLED"
 fi
 
 
@@ -32,5 +34,5 @@ if [ $? -ne 0 ];then #not installed
     dnf install git -y
     validate $? "installing git"
 else
-    echo "git is already..... INSTALLED"
+    echo -e "git is already..... $Y INSTALLED"
 fi
