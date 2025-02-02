@@ -1,8 +1,8 @@
 #!/bin/bash
 userid=$(id -u)
-R="e\[31m"
-G="e\[32m"
-Y="e\[33m"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
 validate(){
       if [ $1 -eq 0 ];then
         echo -e "$2 ...$G successfully"
@@ -31,8 +31,7 @@ dnf list installed git
 
 if [ $? -ne 0 ];then #not installed
     echo "You have sudo access, installing git"
-    dnf install git -y
-    validate $? "installing git"
+     validate $? "installing git"
 else
     echo -e "git is already..... $Y INSTALLED"
 fi
