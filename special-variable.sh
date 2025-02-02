@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#imp interview questions
 echo "all variables passed: $@"
 echo "number of variables passed: $#"
 echo "script name: $0"
