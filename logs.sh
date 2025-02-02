@@ -8,7 +8,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 Log_folder="/var/log/shellscript-logs"
-logfile=$(echo $0| cut -d "." -f 1)
+logfile=$(echo $0 | cut -d "." -f 1)
 timestamp=$(date '+%d-%m-%Y-%H-%M-%S')
 logfilename="$Log_folder/$logfile-$timestamp.log"
 validate(){
@@ -20,7 +20,7 @@ validate(){
     fi
 }
 
-echo "script started at $timestamp" &>>$logfile
+echo "script started at $timestamp" &>>$logfilename
 if [ $userid -ne 0 ];then
     echo "Error:: you must have sudo access to execute this script"
 fi
@@ -30,7 +30,7 @@ dnf list installed mysql
 
 if [ $? -ne 0 ];then #not installed
     echo "You have sudo access, installing mysql"
-    dnf install mysql -y  &>>$logfile
+    dnf install mysql -y  &>>$logfilename
     validate $? "installing mysql"
 else
     echo -e "mysql is already..... $Y INSTALLED"
@@ -41,7 +41,7 @@ dnf list installed git
 
 if [ $? -ne 0 ];then #not installed
     echo "You have sudo access, installing git"
-    dnf install git -y  &>>$logfile
+    dnf install git -y  &>>$logfilename
      validate $? "installing git"
 else
     echo -e "git is already..... $Y INSTALLED"
