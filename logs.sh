@@ -1,4 +1,5 @@
 #!/bin/bash
+#!/bin/bash
 
 # functions and colours
 
@@ -6,6 +7,7 @@ userid=$(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
+Log_folder="/var/log/shellscript-logs"
 validate(){
       if [ $1 -eq 0 ];then
         echo -e "$2 ...$G successfully"
