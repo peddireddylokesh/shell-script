@@ -28,5 +28,5 @@ CHECKROOT(){
 }
 echo "script started executing at $timestamp" &>>$logfilename
 
-files_to_delete=(find $source_dir -name "*.log" -mtime +7)
+files_to_delete=$(find $source_dir -name "*.log" -mtime +7)
 echo "files to be deleted: $files_to_delete"
