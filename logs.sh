@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 # functions and colours
 
