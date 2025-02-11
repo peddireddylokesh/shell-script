@@ -25,6 +25,9 @@ validate(){
 usage(){
     echo -e "$R Usage:: $N sh backup.sh <source_dir> <dest_dir> <days(optional)>"
 }
+
+mkdir -p $/home/ec2-user/sheell-script-logs/
+
 if [ $# lt 2 ];then
     usage
 fi 
