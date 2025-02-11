@@ -45,5 +45,5 @@ if [ ! -d $dest_dir ];then
     exit 1
 fi
 
-files=$(find "$source_dir" -name "*.log" +$days)
+files=$(find "$source_dir" -name "*.log" -mtime $days)
 echo "files are: $files"
