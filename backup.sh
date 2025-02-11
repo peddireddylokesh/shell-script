@@ -46,7 +46,7 @@ if [ ! -d $dest_dir ];then
 fi
 
 files=$(find "$source_dir" -name "*.log" -mtime +$days)
-if [ -n $files ];then
+if [ -n "$files" ];then
     echo "files are: $files"
 else
     echo "No files found olderthan $days"
