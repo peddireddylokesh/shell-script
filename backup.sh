@@ -18,6 +18,7 @@ logfilename="$Log_folder/$logfile-$timestamp.log"
 validate(){
       if [ $1 -eq 0 ];then
         echo -e "$2 ...$G successfully $N"
+
     else
         echo -e "Error:: $2  .....$R failed $N"
         exit 1
@@ -44,5 +45,5 @@ if [ ! -d $dest_dir ];then
     exit 1
 fi
 
-files=$(find "$source_dir" -type f -mtime +$days)
+files=$(find "$source_dir" -name "*.log" -mtime +$days)
 echo "files are: $files"
