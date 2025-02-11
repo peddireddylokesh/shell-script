@@ -46,9 +46,11 @@ if [ ! -d $dest_dir ];then
 fi
 
 files=$(find "$source_dir" -name "*.log" -mtime +$days)
-if [ -n "$files" ];then
+if [ -n "$files" ];then   # true if they are files to zip
     echo "files are: $files"
+    zip_file="$dest_dir/app-logs-$timestamp.zip"
+    zip -r $zip_file $files 
 else
-    echo -e "$R No files found olderthan $N $days"
+    echo -e "$R No files found $N olderthan  $days"
     exit 1
 fi
