@@ -8,7 +8,7 @@ N="\e[0m"
 
 source_dir=$1
 dest_dir=$2
-days=${3:14} # if user is not provinding the days then it will take 14 days as default
+days=${3:-14} # if user is not provinding the days then it will take 14 days as default
 
 Log_folder="/home/ec2-user/shellscript-logs"
 logfile=$(echo $0 | cut -d "." -f 1)
@@ -45,5 +45,5 @@ if [ ! -d $dest_dir ];then
     exit 1
 fi
 
-files=$(find "$source_dir" -name "*.log" -mtime $days)
+files=$(find "$source_dir" -name "*.log" -mtime +$days)
 echo "files are: $files"
