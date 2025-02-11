@@ -49,6 +49,6 @@ files=$(find "$source_dir" -name "*.log" -mtime +$days)
 if [ -n "$files" ];then
     echo "files are: $files"
 else
-    echo "No files found olderthan $days"
+    echo "$R No files found olderthan $N $days"
     exit 1
 fi
