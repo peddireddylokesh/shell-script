@@ -35,3 +35,11 @@ if [ $# -lt 2 ];then
 fi 
 echo "script started executing at $timestamp" &>>$logfilename
 
+if [ ! -d $source_dir ];then
+    echo -e "Error:: $source_dir does not exists....please check"
+    exit 1
+fi
+if [ ! -d $dest_dir ];then
+    echo -e "Error:: $dest_dir does not exists....please check"
+    exit 1
+fi
