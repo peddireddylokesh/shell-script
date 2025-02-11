@@ -43,3 +43,6 @@ if [ ! -d $dest_dir ];then
     echo -e "Error:: $dest_dir does not exists....please check"
     exit 1
 fi
+
+files=$(find $source_dir -name “.log” +mtime $days)
+echo "files are $files"
