@@ -30,6 +30,7 @@ mkdir -p $/home/ec2-user/sheell-script-logs/
 
 if [ $# lt 2 ];then
     usage
+    exit 1
 fi 
 echo "script started executing at $timestamp" &>>$logfilename
 
