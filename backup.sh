@@ -10,7 +10,7 @@ source_dir=$1
 dest_dir=$2
 days=${3:14} # if user is not provinding the days then it will take 14 days as default
 
-Log_folder="/var/log/shellscript-logs"
+Log_folder="/home/ec2-user/shellscript-logs"
 logfile=$(echo $0 | cut -d "." -f 1)
 timestamp=$(date '+%d-%m-%Y-%H-%M-%S')
 logfilename="$Log_folder/$logfile-$timestamp.log"
@@ -26,7 +26,7 @@ usage(){
     echo -e "$R Usage:: $N sh backup.sh <source_dir> <dest_dir> <days(optional)>"
 }
 
-mkdir -p $/home/ec2-user/sheell-script-logs/
+mkdir -p $/home/ec2-user/shellscript-logs/
 
 if [ $# lt 2 ];then
     usage
