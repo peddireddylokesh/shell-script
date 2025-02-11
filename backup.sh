@@ -44,12 +44,5 @@ if [ ! -d $dest_dir ];then
     exit 1
 fi
 
-files=$(find "$source_dir" -name "*.log" -mtime +$days)
-if [ -z "$files" ]; then
-    echo "No files found."
-else
-    echo "Files are:"
-    for file in $files; do
-        echo "$file"
-    done
-fi
+files=$(find "$source_dir" -name "*.log" -mtime "$days")
+echo $files
