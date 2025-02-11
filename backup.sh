@@ -14,6 +14,7 @@ Log_folder="/home/ec2-user/shellscript-logs"
 logfile=$(echo $0 | cut -d "." -f 1)
 timestamp=$(date '+%d-%m-%Y-%H-%M-%S')
 logfilename="$Log_folder/$logfile-$timestamp.log"
+
 validate(){
       if [ $1 -eq 0 ];then
         echo -e "$2 ...$G successfully $N"
@@ -24,13 +25,13 @@ validate(){
 }
 usage(){
     echo -e "$R Usage:: $N sh backup.sh <source_dir> <dest_dir> <days(optional)>"
+    exit 1
 }
 
-mkdir -p $/home/ec2-user/shellscript-logs/
+mkdir -p /home/ec2-user/shellscript-logs/
 
-if [ $# lt 2 ];then
+if [ $# -lt 2 ];then
     usage
-    exit 1
 fi 
 echo "script started executing at $timestamp" &>>$logfilename
 
