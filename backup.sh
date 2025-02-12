@@ -51,8 +51,8 @@ if ! command -v zip &> /dev/null then
         echo "Error: Unsupported OS. Please install zip manually."
         exit 1
     fi
-else 
-    echo -e "zip command is already installed" &>>$logfilename
+ 
+    echo -e "zip command is  installed" &>>$logfilename
 fi
 
 if [ -n "$files" ];then   # true if they are files to zip
