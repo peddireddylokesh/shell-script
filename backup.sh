@@ -5,68 +5,63 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-source_dir=$1
-dest_dir=$2
-days=${3:-14}  # if user is not providing the days then it will take 14 days as default
+SOURCE_DIR=$1
+DEST_DIR=$2
+DAYS=${3:-14} # if user is not providing number of days, we are taking 14 as default
 
-Log_folder="/home/ec2-user/shellscript-logs"
-logfile=$(echo $0 | cut -d "." -f 1)
-timestamp=$(date +%d-%m-%Y-%H-%M-%S)
-logfilename="$Log_folder/$logfile-$timestamp.log"
+LOGS_FOLDER="/home/ec2-user/shellscript-logs"
+LOG_FILE=$(echo $0 | awk -F "/" '{print $NF}' | cut -d "." -f1 )
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+LOG_FILE_NAME="$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log"
 
-usage(){
-    echo -e "$R Usage:: $N sh backup.sh <source_dir> <dest_dir> <days(optional)>"
+USAGE(){
+    #echo -e "$R USAGE:: $N sh 18-backup.sh <SOURCE_DIR> <DEST_DIR> <DAYS(Optional)>"
+    echo -e "$R USAGE:: $N backup <SOURCE_DIR> <DEST_DIR> <DAYS(Optional)>"
     exit 1
 }
 
-mkdir -p /home/ec2-user/shellscript-logs/
+mkdir -p /home/ec2-user/shellscript-logs
 
-# Check for sufficient arguments
 if [ $# -lt 2 ]
 then
-    usage
-fi 
+    USAGE
+fi
 
-# Check if source directory exists
-if [ ! -d "$source_dir" ]
+if [ ! -d "$SOURCE_DIR" ]
 then
-    echo -e "Error:: $source_dir does not exist....please check" &>> $logfilename
+    echo -e "$SOURCE_DIR Does not exist...Please check"
     exit 1
 fi
 
-# Check if destination directory exists
-if [ ! -d "$dest_dir" ]
+if [ ! -d "$DEST_DIR" ]
 then
-    echo -e "Error:: $dest_dir does not exist....please check" &>> $logfilename
+    echo -e "$DEST_DIR Does not exist...Please check"
     exit 1
 fi
 
-echo "Script started executing at $timestamp" &>> $logfilename
+echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
-# Find .log files older than the specified number of days
-files=$(find "$source_dir" -name "*.log" -mtime +$days)
+FILES=$(find $SOURCE_DIR -name "*.log" -mtime +$DAYS)
 
-# If log files are found, zip them
-if [ -n "$files" ]
+if [ -n "$FILES" ] # true if there are files to zip
 then
-    echo "Files are: $files"
-    zip_file="$dest_dir/app-logs-$timestamp.zip"
-    find $source_dir -name "*.log" -mtime +$days | zip -@ "$zip_file"
-
-    if [ -f "$zip_file" ]
+    echo "Files are: $FILES"
+    ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
+    find $SOURCE_DIR -name "*.log" -mtime +$DAYS | zip -@ "$ZIP_FILE"
+    if [ -f "$ZIP_FILE" ]
     then
-        echo -e "Zipped file is successfully created for files older than $days days." &>> $logfilename
-
-        # Delete the old log files after zipping
-        while read -r file_path; do
-            echo "Deleting file : $file_path" &>> $logfilename
-            rm -rf "$file_path"
-            echo "Deleted file: $file_path" &>> $logfilename
-        done <<< "$files"
+        echo -e "Successfully created zip file for files older than $DAYS"
+        while read -r filepath # here filepath is the variable name, you can give any name
+        do
+            echo "Deleting file: $filepath" &>>$LOG_FILE_NAME
+            rm -rf $filepath
+            echo "Deleted file: $filepath"
+        done <<< $FILES
     else
-        echo -e "$R Error:: $N Failed to create the zip file" &>> $logfilename
+        echo -e "$R Error:: $N Failed to create ZIP file "
         exit 1
     fi
+
 else
-    echo -e "$R No files found older than $days days $N" &>> $logfilename
+    echo "No files found older than $DAYS"
 fi
