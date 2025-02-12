@@ -39,9 +39,12 @@ if [ ! -d "$dest_dir" ]; then
 fi
 
 echo "Script started executing at $timestamp" &>> $logfilename
+find "$source_dir" -name "*.log" -mtime +$days | while read -r file_path; do
+    echo "File found: $file_path" &>> $logfilename
+    files+=("$file_path")
+done
 
-# Find .log files older than the specified number of days
-files=$(find "$source_dir" -name "*.log" -mtime +$days)
+
 
 # Check if zip is installed, if not install it
 if ! command -v zip &> /dev/null; then
@@ -67,8 +70,9 @@ if ! command -v zip &> /dev/null; then
 fi
 
 # If log files are found, zip them
-if [ -n "$files" ]; then
-    echo "Files found: $files"
+if [ -n "$files[@]" -gt 0]; then
+
+    echo "Files found: $files" &>> $logfilename
     zip_file="$dest_dir/app-logs-$timestamp.zip"
     find "$source_dir" -name "*.log" -mtime +$days | zip -@ "$zip_file"
 
