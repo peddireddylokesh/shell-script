@@ -44,20 +44,20 @@ if [ -n "$files" ];then   # true if they are files to zip
     echo "files are: $files"
     zip_file="$dest_dir/app-logs-$timestamp.zip" 
     find "$source_dir" -name "*.log" -mtime +$days | zip -@ "$zip_file"
-    if [ -f $zip_file ]then
+    if [ -f $zip_file ];then
      echo -e "zipped file is successfully created older-than $days" &>>$logfilename
 
         while read -r file_path
-         do
+        do
             echo "deleting $file_path" &>>$logfilename
             rm -rf $file_path
             echo  "Deleted file : $file_path"
         done <<< $files
     else
-    echo -e "Error:: $N failed to create zip file" &>>$logfilename
-    exit 1
+        echo -e "Error:: $N failed to create zip file" &>>$logfilename
+        exit 1
     fi
 else
-echo -e "$R No files found $N olderthan  $days" &>>$logfilename
-exit 1
+    echo -e "$R No files found $N olderthan  $days" &>>$logfilename
+    exit 1
 fi
