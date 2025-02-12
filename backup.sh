@@ -37,8 +37,10 @@ fi
 
 echo "script started executing at $timestamp" &>>$logfilename
 
+# Find .log files older than the specified number of days
 files=$(find "$source_dir" -name "*.log" -mtime +$days)
 
+# Check if zip is installed, if not install it
 if ! command -v zip &> /dev/null then
     echo -e "zip command is not found, installing zip" &>>$logfilename
  if [ -f /etc/debian_version ]; then
@@ -51,8 +53,12 @@ if ! command -v zip &> /dev/null then
         echo "Error: Unsupported OS. Please install zip manually."
         exit 1
     fi
- 
-echo -e "zip command is  installed" &>>$logfilename
+ if ! command -v zip &> /dev/null then
+        echo "Error: Failed to install zip. Please install zip manually."
+        exit 1
+    fi
+
+    echo -e "zip command is now installed" &>>$logfilename
 fi
 
 if [ -n "$files" ];then   # true if they are files to zip
