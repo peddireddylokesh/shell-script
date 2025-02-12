@@ -57,7 +57,6 @@ if ! command -v zip &> /dev/null; then
         echo "Error: Failed to install zip. Please install zip manually."
         exit 1
     fi
-else
     echo -e "zip command is now installed" &>>$logfilename
 fi
 
@@ -68,8 +67,7 @@ if [ -n "$files" ];then   # true if they are files to zip
     if [ -f $zip_file ];then
      echo -e "zipped file is successfully created older-than $days" &>>$logfilename
 
-        while read -r file_path
-        do
+        while read -r file_path;do
             echo "deleting $file_path" &>>$logfilename
             rm -rf $file_path
             echo  "Deleted file : $file_path"
