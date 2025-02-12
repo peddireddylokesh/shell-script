@@ -47,7 +47,7 @@ if [ -n "$FILES" ]
 then
     echo "Files are $FILES"
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.ZIP" 
-    zip -r $ZIP_FILE $FILES &>>$LOG_FILE_NAME
+    find $SOURCE_DIR -name "*.log" -mtime +$DAYS | zip -@ "$ZIP_FILE"
 else
     echo -e "$R Error:: $N No files found older than $DAYS days"
     exit 1
