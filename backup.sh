@@ -70,13 +70,12 @@ if ! command -v zip &> /dev/null; then
 fi
 
 # If log files are found, zip them
-if [ ${#files[@]} -gt 0] then
-
-    echo "Files found: $files" &>> $logfilename
+if [ ${#files[@]} -gt 0 ]; then
+    echo "Zipping files..." &>> $logfilename
     zip_file="$dest_dir/app-logs-$timestamp.zip"
     zip "$zip_file" "${files[@]}" &>> $logfilename
 
-   if [ -f "$zip_file" ]; then
+    if [ -f "$zip_file" ]; then
         echo -e "Zipped file is successfully created for files older than $days days." &>> $logfilename
 
         # Delete the old log files after zipping
@@ -93,5 +92,3 @@ else
     echo -e "$R No files found older than $days days $N" &>> $logfilename
     exit 1
 fi
-
-
