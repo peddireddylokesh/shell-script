@@ -42,6 +42,13 @@ files=$(find "$source_dir" -name "*.log" -mtime +$days)
 
 if [ -n "$files" ];then   # true if they are files to zip
     echo "files are: $files"
+    if [ ! command -v zip &> /dev/null ];then
+        echo -e "zip command is not found, installing zip" &>>$logfilename
+        sudo dnf install zip -y
+    fi
+    else 
+        echo -e "zip command is already installed" &>>$logfilename
+    fi
     zip_file="$dest_dir/app-logs-$timestamp.zip" 
     find $source_dir -name "*.log" -mtime +$days | zip -@ "$zip_file"
     if [ -f $zip_file ];then
