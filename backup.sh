@@ -38,10 +38,19 @@ fi
 echo "script started executing at $timestamp" &>>$logfilename
 
 files=$(find "$source_dir" -name "*.log" -mtime +$days)
-if [ ! command -v zip &> /dev/null ];then
-    echo -e "zip command is not found, installing zip" &>>$logfilename
-    sudo dnf install zip -y
 
+if ! command -v zip &> /dev/null then
+    echo -e "zip command is not found, installing zip" &>>$logfilename
+ if [ -f /etc/debian_version ]; then
+        # For Debian/Ubuntu-based systems
+        sudo apt-get update && sudo apt-get install -y zip
+    elif [ -f /etc/redhat-release ]; then
+        # For Red Hat/CentOS/Fedora-based systems
+        sudo yum install -y zip
+    else
+        echo "Error: Unsupported OS. Please install zip manually."
+        exit 1
+    fi
 else 
     echo -e "zip command is already installed" &>>$logfilename
 fi
