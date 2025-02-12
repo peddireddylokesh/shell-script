@@ -63,6 +63,6 @@ then
         exit 1  
     fi
 else
-    echo -e "$R Error:: $N No files found older than $DAYS days"
+    echo -e "$R Error::  No files found older than$N $DAYS days"
     exit 1
 fi
