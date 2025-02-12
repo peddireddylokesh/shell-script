@@ -43,7 +43,7 @@ files=$(find "$source_dir" -name "*.log" -mtime +$days)
 if [ -n "$files" ];then   # true if they are files to zip
     echo "files are: $files"
     zip_file="$dest_dir/app-logs-$timestamp.zip" 
-    find "$source_dir" -name "*.log" -mtime +$days | zip -@ "$zip_file"
+    find $source_dir -name "*.log" -mtime +$days | zip -@ "$zip_file"
     if [ -f $zip_file ];then
      echo -e "zipped file is successfully created older-than $days" &>>$logfilename
 
