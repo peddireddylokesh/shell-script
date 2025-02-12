@@ -70,7 +70,7 @@ if ! command -v zip &> /dev/null; then
 fi
 
 # If log files are found, zip them
-if [ ${#files[@]} -gt 0]; then
+if [ ${#files[@]} -gt 0] then
 
     echo "Files found: $files" &>> $logfilename
     zip_file="$dest_dir/app-logs-$timestamp.zip"
