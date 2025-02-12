@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -8,7 +7,7 @@ N="\e[0m"
 
 source_dir=$1
 dest_dir=$2
-days=${3:-14} # if user is not provinding the days then it will take 14 days as default
+days=${3:-14}  # if user is not providing the days then it will take 14 days as default
 
 Log_folder="/home/ec2-user/shellscript-logs"
 logfile=$(echo $0 | cut -d "." -f 1)
@@ -22,27 +21,31 @@ usage(){
 
 mkdir -p /home/ec2-user/shellscript-logs/
 
-if [ $# -lt 2 ];then
+# Check for sufficient arguments
+if [ $# -lt 2 ]; then
     usage
 fi 
 
-if [ ! -d $source_dir ];then
-    echo -e "Error:: $source_dir does not exists....please check"
-    exit 1
-fi
-if [ ! -d $dest_dir ];then
-    echo -e "Error:: $dest_dir does not exists....please check"
+# Check if source directory exists
+if [ ! -d "$source_dir" ]; then
+    echo -e "Error:: $source_dir does not exist....please check" &>> $logfilename
     exit 1
 fi
 
-echo "script started executing at $timestamp" &>>$logfilename
+# Check if destination directory exists
+if [ ! -d "$dest_dir" ]; then
+    echo -e "Error:: $dest_dir does not exist....please check" &>> $logfilename
+    exit 1
+fi
+
+echo "Script started executing at $timestamp" &>> $logfilename
 
 # Find .log files older than the specified number of days
 files=$(find "$source_dir" -name "*.log" -mtime +$days)
 
 # Check if zip is installed, if not install it
 if ! command -v zip &> /dev/null; then
-    echo -e "zip command is not found, installing zip" &>>$logfilename
+    echo -e "zip command is not found, installing zip..." &>> $logfilename
     if [ -f /etc/debian_version ]; then
         # For Debian/Ubuntu-based systems
         sudo apt-get update && sudo apt-get install -y zip
@@ -50,33 +53,40 @@ if ! command -v zip &> /dev/null; then
         # For Red Hat/CentOS/Fedora-based systems
         sudo yum install -y zip
     else
-        echo "Error: Unsupported OS. Please install zip manually."
+        echo "Error: Unsupported OS. Please install zip manually." &>> $logfilename
         exit 1
     fi
-    if ! command -v zip &> /dev/null then
-        echo "Error: Failed to install zip. Please install zip manually."
+
+    # Check if zip is installed successfully
+    if ! command -v zip &> /dev/null; then
+        echo "Error: Failed to install zip. Exiting script." &>> $logfilename
         exit 1
     fi
-    echo -e "zip command is now installed" &>>$logfilename
+
+    echo -e "zip command is now installed." &>> $logfilename
 fi
 
-if [ -n "$files" ];then   # true if they are files to zip
-    echo "files are: $files"
-    zip_file="$dest_dir/app-logs-$timestamp.zip" 
+# If log files are found, zip them
+if [ -n "$files" ]; then
+    echo "Files found: $files"
+    zip_file="$dest_dir/app-logs-$timestamp.zip"
     find "$source_dir" -name "*.log" -mtime +$days | zip -@ "$zip_file"
-    if [ -f $zip_file ];then
-     echo -e "zipped file is successfully created older-than $days" &>>$logfilename
 
-        while read -r file_path;do
-            echo "deleting $file_path" &>>$logfilename
-            rm -rf $file_path
-            echo  "Deleted file : $file_path"
-        done <<< $files
+    if [ -f "$zip_file" ]; then
+        echo -e "Zipped file is successfully created for files older than $days days." &>> $logfilename
+
+        # Delete the old log files after zipping
+        while read -r file_path; do
+            echo "Deleting $file_path" &>> $logfilename
+            rm -rf "$file_path"
+            echo "Deleted file: $file_path" &>> $logfilename
+        done <<< "$files"
     else
-        echo -e "Error:: $N failed to create zip file" &>>$logfilename
+        echo -e "Error:: Failed to create the zip file" &>> $logfilename
         exit 1
     fi
 else
-    echo -e "$R No files found $N olderthan  $days" &>>$logfilename
+    echo -e "$R No files found older than $days days $N" &>> $logfilename
     exit 1
 fi
+
