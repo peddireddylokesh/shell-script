@@ -15,15 +15,6 @@ logfile=$(echo $0 | cut -d "." -f 1)
 timestamp=$(date '+%d-%m-%Y-%H-%M-%S')
 logfilename="$Log_folder/$logfile-$timestamp.log"
 
-validate(){
-      if [ $1 -eq 0 ];then
-        echo -e "$2 ...$G successfully $N"
-
-    else
-        echo -e "Error:: $2  .....$R failed $N"
-        exit 1
-    fi
-}
 usage(){
     echo -e "$R Usage:: $N sh backup.sh <source_dir> <dest_dir> <days(optional)>"
     exit 1
@@ -34,7 +25,6 @@ mkdir -p /home/ec2-user/shellscript-logs/
 if [ $# -lt 2 ];then
     usage
 fi 
-echo "script started executing at $timestamp" &>>$logfilename
 
 if [ ! -d $source_dir ];then
     echo -e "Error:: $source_dir does not exists....please check"
@@ -45,12 +35,29 @@ if [ ! -d $dest_dir ];then
     exit 1
 fi
 
+echo "script started executing at $timestamp" &>>$logfilename
+
 files=$(find "$source_dir" -name "*.log" -mtime +$days)
+
+
 if [ -n "$files" ];then   # true if they are files to zip
     echo "files are: $files"
     zip_file="$dest_dir/app-logs-$timestamp.zip" 
     find "$source_dir" -name "*.log" -mtime +$days | zip -@ "$zip_file"
-else
-    echo -e "$R No files found $N olderthan  $days"
+    if [ -f $zip_file ]then
+     echo -e "zipped file is successfully created older-than $days"
+
+        while read -r file_path
+         do
+            echo "deleting $file_path" &>>$logfilename
+            rm -rf $file_path
+            echo  "Deleted file : $file_path"
+        done <<< $files
+    else
+    echo -e "Error:: $N failed to create zip file"
     exit 1
+    fi
+else
+echo -e "$R No files found $N olderthan  $days"
+exit 1
 fi
