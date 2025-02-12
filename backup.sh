@@ -52,7 +52,7 @@ if ! command -v zip &> /dev/null then
         exit 1
     fi
  
-    echo -e "zip command is  installed" &>>$logfilename
+echo -e "zip command is  installed" &>>$logfilename
 fi
 
 if [ -n "$files" ];then   # true if they are files to zip
