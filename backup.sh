@@ -82,7 +82,7 @@ if [ -n "$files" ]; then
             echo "Deleted file: $file_path" &>> $logfilename
         done <<< "$files"
     else
-        echo -e "Error:: Failed to create the zip file" &>> $logfilename
+        echo -e "$R Error:: $N Failed to create the zip file" &>> $logfilename
         exit 1
     fi
 else
