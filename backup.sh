@@ -41,7 +41,7 @@ echo "script started executing at $timestamp" &>>$logfilename
 files=$(find "$source_dir" -name "*.log" -mtime +$days)
 
 # Check if zip is installed, if not install it
-if ! command -v zip &> /dev/null then
+if ! command -v zip &> /dev/null; then
     echo -e "zip command is not found, installing zip" &>>$logfilename
  if [ -f /etc/debian_version ]; then
         # For Debian/Ubuntu-based systems
@@ -64,7 +64,7 @@ fi
 if [ -n "$files" ];then   # true if they are files to zip
     echo "files are: $files"
     zip_file="$dest_dir/app-logs-$timestamp.zip" 
-    find $source_dir -name "*.log" -mtime +$days | zip -@ "$zip_file"
+    find "$source_dir" -name "*.log" -mtime +$days | zip -@ "$zip_file"
     if [ -f $zip_file ];then
      echo -e "zipped file is successfully created older-than $days" &>>$logfilename
 
