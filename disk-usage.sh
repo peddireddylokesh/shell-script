@@ -10,9 +10,9 @@ do
    # echo "partition  is $partition ,usage : $usage"
     if [ $usage -ge $disk_threshhold ]
     then
-        msg+="Disk usage is high  $partition usage is $usage\n"
+        msg+="Disk usage is high  $partition usage is $usage \n"
     fi
 done <<< $disk_usage
 
-echo "message $msg"
+echo -e "message $msg"
 
