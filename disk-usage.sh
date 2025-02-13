@@ -16,6 +16,6 @@ done <<< $disk_usage
 
 echo -e "message $msg"
 
-echo "$msg" | mutt | -s "high disk usage" peddireddylokesh999@gmail.com
+echo "$msg" | sendmail -s "high disk usage" peddireddylokesh999@gmail.com
 
 
