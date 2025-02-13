@@ -2,6 +2,7 @@
 
 disk_usage=$(df -hT | grep xfs)
 disk_threshhold=5 #in real projects it would
+msg=""
 while read -r line
 do 
    
@@ -10,7 +11,7 @@ do
    # echo "partition  is $partition ,usage : $usage"
     if [ $usage -ge $disk_threshhold ]
     then
-        msg+="Disk usage is high  $partition usage is $usage \n"
+        msg+="Disk usage is high  $partition usage is $usage \n "
     fi
 done <<< $disk_usage
 
