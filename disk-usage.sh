@@ -1,6 +1,6 @@
 #!/bin/bash
 
-disk_usage=$(dh -hT | grep xfs)
+disk_usage=$(df -hT | grep xfs)
 while read -r line
 do 
     echo "$line"
