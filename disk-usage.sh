@@ -8,5 +8,5 @@ do
     echo "$line"
     usage=$(echo $line | awk  -F " "'{print $6F}')
     partition=$(echo $line | awk  -F " "'{print $6F}')
-    echo "partition  is $partition" $usage 
-done <<<$disk_usage
+    echo "partition  is $partition ,usage : $usage"
+done <<< $disk_usage
