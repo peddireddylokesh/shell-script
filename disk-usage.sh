@@ -9,4 +9,4 @@ do
     usage=$(echo $line | awk  -F " "'{print $6F}')
     partition=$(echo $line | awk  -F " "'{print $6F}')
     echo "partition  is $partition" $usage 
-jone <<<$disk_usage
+done <<<$disk_usage
