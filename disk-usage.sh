@@ -8,7 +8,7 @@ while read -r line
 do 
    
     usage=$(echo $line | awk '{print $6}' | cut -d "%" -f1)
-    partition=$(echo $line | awk  -F " " '{print $NF}')
+    partition=$(echo $line | awk  -F " " '{print $6F}')
    # echo "partition  is $partition ,usage : $usage"
     if [ $usage -ge $disk_threshhold ]
     then
