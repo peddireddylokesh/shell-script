@@ -2,4 +2,4 @@
 msg="script2"
 echo "hello from : $msg"
 
-echo $greet
+echo "$greet"
