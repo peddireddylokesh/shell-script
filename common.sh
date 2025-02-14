@@ -5,7 +5,6 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-source_dir="/home/ec2-user/app-logs"
 
 Log_folder="/var/log/shellscript-logs"
 logfile=$(echo $0 | cut -d "." -f 1)
