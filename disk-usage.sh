@@ -12,12 +12,12 @@ do
    # echo "partition  is $partition ,usage : $usage"
     if [ $usage -ge $disk_threshhold ]
     then
-        msg+="Disk usage is high: $partition usage is $usage /n "
+        msg+="Disk usage is high: $partition usage is $usage \n "
     fi
 done <<< $disk_usage
 
 echo -e "message :: $msg"
 
-echo $msg "Subject: high disk usage" | sendmail manoharpanthala345@gmail.com
+echo $msg "Subject: high disk usage" | sendmail peddireddylokesh999@gmail.com
 
 
