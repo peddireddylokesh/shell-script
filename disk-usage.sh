@@ -18,6 +18,6 @@ done <<< $disk_usage
 
 echo -e "message :: $msg"
 
-echo $msg "Subject: high disk usage" | sendmail peddireddylokesh999@gmail.com
+echo $msg "Subject: high disk usage" | sendmail manoharpanthala345@gmail.com
 
 
