@@ -18,6 +18,6 @@ done <<< $disk_usage
 
 echo -e "message :: $msg"
 
-echo $msg "Subject: high disk usage" | mutt -s peddireddylokesh999@gmail.com
+echo $msg | mutt -s "Subject: high disk usage" peddireddylokesh999@gmail.com
 
 
